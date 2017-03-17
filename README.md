@@ -11,7 +11,7 @@ Met het standalone script 'test_script.py' kan de API getest worden. Het script 
 Database
 --------
 
-De applicatie werkt met een MySQL database die 'restapiapp' moet heten met een utf-8 encoding. In my.cnf (die bevindt zich in dezelfde directory als deze readme).
+De applicatie werkt met een MySQL database die 'restapiapp' moet heten met een utf-8 encoding. In my.cnf (die bevindt zich in dezelfde directory als deze readme) staan de gebruikersgegevens voor MySQL.
 
 De setup van de database kan met de migration die in het project staat.
 
@@ -21,6 +21,17 @@ Dependencies
 ------------
 
 Ik heb voor dit project gebruik gemaakt van rest_framework en requests. Ik heb (in de root) een requirements.txt gegenereerd met 'pip freeze'. Met pip install -r requirements.txt installeer je alle requirements.
+
+Setup in het kort
+-----------------
+
+Kortom de volgende stappen zijn nodig om de applicatie te draaien:
+- Maak MySQL database 'restapiapp'
+- Pas username en pasword van de database aan in my.cnf
+- pip install -r requirements.txt
+- python3 manage.py migrate
+- python3 manage.py populatedatabase
+- python3 test_script.py om te testen of alles werkt.
 
 Verantwoording keuzes
 ---------------------
