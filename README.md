@@ -39,7 +39,7 @@ Verantwoording keuzes
 Django rest_framework
 ---------------------
 
-Ik heb er uiteindelijk voor gekozen toch met het rest_framework van Django te werken omdat ik dat toch de meest elegante manier vind om JSon te serveren binnen Django. Het met de hand serialiseren van modellen voelde teveel als overbodig.
+Ik heb er uiteindelijk voor gekozen toch met het rest_framework van Django te werken omdat ik dat de meest elegante manier vind om JSon te serveren binnen Django. Het met de hand serialiseren van modellen voelde als overbodig werk.
 
 
 Opbouw database
@@ -50,4 +50,4 @@ De opbouw van de database spreekt denk ik voor zich. Ik heb ervoor gekozen de ca
 TMDb API calls
 --------------
 
-Ik heb overwogen een Python library voor TMDb te gebruiken (zoals genoemd op https://www.themoviedb.org/documentation/api/wrappers-libraries), maar die blijken geen van allen rekening te houden met de rate limit van TMDb. Overigens is het mij niet gelukt tegen de limieten op te lopen omdat de responsetijd van TMDb niet supersnel is.
+Ik heb overwogen een Python library voor TMDb te gebruiken (zoals genoemd op https://www.themoviedb.org/documentation/api/wrappers-libraries), maar die blijken geen van allen rekening te houden met de rate limit van TMDb. Overigens is het mij niet gelukt tegen de limieten op te lopen, omdat de API van TMDb vrij traag is.
