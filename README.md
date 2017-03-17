@@ -20,13 +20,13 @@ De database kan worden gevuld via de management functie 'populatedatabase'. Dus 
 Dependencies
 ------------
 
-Ik heb voor dit project gebruik gemaakt van rest_framework en requests. Ik heb (in de root) een requirements.txt gegenereerd met 'pip freeze'. Met pip install -r requirements.txt installeer je alle requirements.
+Ik heb voor dit project gebruik gemaakt van de libraries 'rest_framework', 'requests' en natuurlijk 'mysqlclient'. Ik heb (in de root) een requirements.txt gegenereerd met 'pip freeze'. Met pip install -r requirements.txt installeer je alle requirements.
 
 Setup in het kort
 -----------------
 
 Kortom de volgende stappen zijn nodig om de applicatie te draaien:
-- Maak MySQL database 'restapiapp'
+- Maak MySQL database 'restapiapp' (met uft-8 encoding)
 - Pas username en pasword van de database aan in my.cnf
 - pip install -r requirements.txt
 - python3 manage.py migrate
@@ -39,7 +39,7 @@ Verantwoording keuzes
 Django rest_framework
 ---------------------
 
-Ik heb er uiteindelijk voor gekozen toch met het rest_framework van Django te werken omdat ik dat toch de meest elegante manier vind om JSon te serveren binnen Django. Het met de hand serialiseren van modellen voelt teveel als overbodig.
+Ik heb er uiteindelijk voor gekozen toch met het rest_framework van Django te werken omdat ik dat toch de meest elegante manier vind om JSon te serveren binnen Django. Het met de hand serialiseren van modellen voelde teveel als overbodig.
 
 
 Opbouw database
