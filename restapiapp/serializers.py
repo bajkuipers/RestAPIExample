@@ -34,6 +34,7 @@ class MovieSerializer(serializers.ModelSerializer):
       fields = '__all__'
 
 
+# Serializer die wordt gebruikt voor het opleveren van gepagineerde lijsten films
 class PaginatedMovieSerializer():
     def __init__(self, movies, request, num):
       # Gebruik paginator van Django
@@ -49,10 +50,12 @@ class PaginatedMovieSerializer():
           movies = paginator.page(paginator.num_pages)
       count = paginator.count
 
+      # Bepaald vorige en volgende pagina's
       previous = None if not movies.has_previous() else movies.previous_page_number()
       next = None if not movies.has_next() else movies.next_page_number()
       serializer = MovieSerializer(movies, many=True)
 
+      # Zet JSon resultaat in elkaar
       self.data = {'page':count,
                    'previous_page':previous,
                    'next_page':next,

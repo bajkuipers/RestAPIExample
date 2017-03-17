@@ -1,4 +1,4 @@
-import time
+import datetime
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -8,6 +8,10 @@ from rest_framework import status
 from restapiapp.models import Movie, Keyword, Crew, Cast
 from restapiapp.serializers import MovieSerializer, KeywordSerializer, CrewSerializer, CastSerializer, PaginatedMovieSerializer
 
+#########
+# Movie #
+#########
+  
 @api_view(['GET', 'POST'])
 # Handles /movies GET and POST
 def movie_list(request):
@@ -63,53 +67,86 @@ def delete_movie(request, movie_id):
   movie.delete()
   return Response(status=status.HTTP_204_NO_CONTENT)
 
+########
+# Cast #
+########
   
+@api_view(['GET', 'PUT', 'DELETE'])
+# Handles /cast/{cast_id} GET, PUT and DELETE and calls methods accordingly
+def cast_detail(request, id):
+  if request.method == 'GET':
+    return get_cast(request, id)
+  elif request.method == 'PUT':
+    return update_cast(request, id)
+  elif request.method == 'DELETE':
+    return delete_cast(request, id)
+
+# cast/{movie_id}: vraag cast op van een film
+def get_cast(request, movie_id):
+  cast = Cast.objects.filter(movie=movie_id)
+  serializer = CastSerializer(cast, many=True)
+  return Response(serializer.data)
+
+# cast/{cast_id}: Update cast met id cast_id
+def update_cast(request, cast_id):
+  cast = Cast.objects.get(id=cast_id)
+  serializer = CastSerializer(cast, data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+    return Response(serializer.data)
+  else:
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# cast/{cast_id}: Delete cast met id cast_id
+def delete_cast(request, cast_id):
+  cast = Cast.objects.get(id=cast_id)
+  cast.delete()
+  return Response(status=status.HTTP_204_NO_CONTENT)
   
 
-#/movies/1/credits
-#
-#
-#
-#/api/v3/
-  #/movies
-    #/1
-      #title: Pietje Puk 2
-      #director_id: 2
-      #keywords: ['aa[', 'noot']
-      #credits: {
-        #director_id: 2,
-        #cameraman_id: 8
-      #}
-  #/directors
-    #/2
-      #name: Hans Worst
-      #birth_date: 1-1-2001
-#
-#Create  POST /movies    { json - data }
-#Read    GET /movies/1
-#Update  PUT /movies/1   { json - data, alle velden - flexibel zijn in de velden die er zijn. } 
-#Delete  DELETE /movies/1
+########
+# Crew #
+########
+  
+@api_view(['GET', 'PUT', 'DELETE'])
+# Handles /crew/{crew_id} GET, PUT and DELETE and calls methods accordingly
+def crew_detail(request, id):
+  if request.method == 'GET':
+    return get_crew(request, id)
+  elif request.method == 'PUT':
+    return update_crew(request, id)
+  elif request.method == 'DELETE':
+    return delete_crew(request, id)
 
+# crew/{crew_id}: vraag crew op van een film
+def get_crew(request, movie_id):
+  crew = Crew.objects.filter(movie=movie_id)
+  serializer = CrewSerializer(crew, many=True)
+  return Response(serializer.data)
 
-#import http.client
-#import json
-#
-#def populate_database(request):
-  #conn = http.client.HTTPSConnection("api.themoviedb.org")
+# crew/{crew_id}: Update crew entry met id crew_id
+def update_crew(request, crew_id):
+  crew = Crew.objects.get(id=crew_id)
+  serializer = CrewSerializer(crew, data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+    return Response(serializer.data)
+  else:
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-  #payload = "{}"
+# crew/{crew_id}: Delete crew met id crew_id
+def delete_crew(request, crew_id):
+  crew = Crew.objects.get(id=crew_id)
+  crew.delete()
+  return Response(status=status.HTTP_204_NO_CONTENT)
 
-  #url = "/3/movie/now_playing?api_key=fc2ace46c0d0b40befd3c275bc7b404d&region=NL"
-  #url = "/3/movie/341174?append_to_response=keywords%2Ccredits&language=nl-NL&api_key=fc2ace46c0d0b40befd3c275bc7b404d"
-  #url = "/3/movie/341174?api_key=fc2ace46c0d0b40befd3c275bc7b404d&language=nl-NL&append_to_response=keywords,credits"
-  #conn.request("GET", url, payload)
+########
+# Crew #
+########
 
-  #data = conn.getresponse().read()
-  #results = json.loads(data.decode("utf-8"))['results']
-  #print(results)
-  #for result in results:
-    #print(result)
-    #
-    #serializer = MovieSerializer(data=result)
-    #if serializer.is_valid():
-      #new_movie = serializer.save()
+@api_view(['GET'])
+# crew/{crew_id}: vraag crew op van een film
+def keyword_detail(request, movie_id):
+  keywords = Keyword.objects.filter(movie=movie_id)
+  serializer = KeywordSerializer(keywords, many=True)
+  return Response(serializer.data)

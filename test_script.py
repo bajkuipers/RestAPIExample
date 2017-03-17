@@ -1,15 +1,6 @@
 import http.client
 import json
 
-'''
-TODO:
-- timeout van the movie database
-- pages (zowel bij inladen als bij uitserveren)
-- requests gebruiken
-- pip freeze
--
-'''
-
 def test_api():
   # Vraag lijst van alle films op
   test_api_request("/movies")
@@ -21,6 +12,19 @@ def test_api():
   test_api_request("/movies", 'POST', request_body='{"title":"Nieuwe filmtitel","release_date":"2017-02-09","original_language":"en"}')
   # Pas details van een film aan
   test_api_request("/movies/1", 'PUT', '{"title":"Aangepaste filmtitel","release_date":"2017-4-1","original_language":"nl"}')
+  
+  # Vraag cast van film 1 op
+  test_api_request("/cast/1")
+  # Pas cast entry van Jason Schwartzman aan
+  test_api_request("/cast/1", 'PUT', '{"name":"Dakota Johnson","character":"Aangepast karakter","movie":1}')
+
+  # Vraag crew van film 1 op
+  test_api_request("/crew/1")
+  # Pas crew entry van Jason Schwartzman aan
+  test_api_request("/crew/54", 'PUT', '{"name":"John Schwartzman","job":"Aangepaste job","movie":1}')
+
+  # Vraag keywords van film 1 op
+  test_api_request("/keywords/1")
 
 def test_api_request(url, method='GET', request_body=''):
   conn = http.client.HTTPConnection("localhost:8000")
